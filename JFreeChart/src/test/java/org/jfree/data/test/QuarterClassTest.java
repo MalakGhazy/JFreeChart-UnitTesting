@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.jfree.data.time.Quarter;
 import org.junit.Test;
+import org.junit.BeforeClass; // 🔹 Added this to set up timezone before tests run
 import org.jfree.data.time.Year;
 
 import  java.lang.String;
@@ -16,6 +17,11 @@ import java.text.SimpleDateFormat;
 
 public class QuarterClassTest {
     Quarter quarter;
+
+    @BeforeClass
+    public static void setUp() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+    }
 
     private void arrange(Integer quart, Integer year) {
         quarter = new Quarter(quart, year);
@@ -53,6 +59,7 @@ public class QuarterClassTest {
 	@Test
     public void testQuarterCtor3()throws ParseException{
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date time = sdf.parse("02/01/2020");
     	Quarter quart =new Quarter(time);
     	 arrange(1,2020);
@@ -71,8 +78,9 @@ public class QuarterClassTest {
     @Test
     public void testQuarterCtor5()throws ParseException{
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC")); // 🔹 Ensuring correct timezone
         Date time = sdf.parse("02/01/2022");
-    	TimeZone zone = TimeZone.getTimeZone("Europe/Madrid");
+    	TimeZone zone = TimeZone.getTimeZone("UTC");
     	Quarter quart =new Quarter(time, Calendar.getInstance(zone));
     	 arrange(1,2022);
          assertEquals(quarter.getYear(),quart.getYear());
@@ -217,7 +225,7 @@ public class QuarterClassTest {
      public void testGetFirstMilisecond1()
      {
          arrange(1,2023);
-         TimeZone timeZone = TimeZone.getDefault();
+         TimeZone timeZone = TimeZone.getTimeZone("UTC");
          Calendar calendar = Calendar.getInstance(timeZone);
          calendar.set(2023, Calendar.JANUARY, 1, 0, 0, 0);
          calendar.set(Calendar.MILLISECOND, 0);
@@ -227,7 +235,7 @@ public class QuarterClassTest {
      public void testGetFirstMillisecond2()
      {
     	 arrange(2,2023);
-         TimeZone timeZone = TimeZone.getDefault();
+         TimeZone timeZone = TimeZone.getTimeZone("UTC");
          Calendar calendar = Calendar.getInstance(timeZone);
          calendar.set(2023, Calendar.APRIL, 1, 0, 0, 0);
          calendar.set(Calendar.MILLISECOND, 0);
@@ -237,7 +245,7 @@ public class QuarterClassTest {
      public void testGetFirstMillisecond3()
      {
     	 arrange(1,2022);
-         TimeZone timeZone = TimeZone.getDefault();
+         TimeZone timeZone = TimeZone.getTimeZone("UTC");
          Calendar calendar = Calendar.getInstance(timeZone);
          calendar.set(2022, Calendar.JANUARY, 1, 0, 0, 0);
          calendar.set(Calendar.MILLISECOND, 0);
@@ -247,7 +255,7 @@ public class QuarterClassTest {
      public void testGetFirstMillisecond4()
      {
     	 arrange(2,2022);
-         TimeZone timeZone = TimeZone.getDefault();
+         TimeZone timeZone = TimeZone.getTimeZone("UTC");
          Calendar calendar = Calendar.getInstance(timeZone);
          calendar.set(2022, Calendar.APRIL, 1, 0, 0, 0);
          calendar.set(Calendar.MILLISECOND, 0);
