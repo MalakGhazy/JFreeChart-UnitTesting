@@ -8,6 +8,7 @@ import org.jfree.data.time.Year;
 
 import  java.lang.String;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -15,7 +16,6 @@ import java.text.SimpleDateFormat;
 
 public class QuarterClassTest {
     Quarter quarter;
-    
 
     private void arrange(Integer quart, Integer year) {
         quarter = new Quarter(quart, year);
@@ -27,8 +27,11 @@ public class QuarterClassTest {
     @Test
     public void testQuarterDefaultCtor(){
         arrange();
-        assertEquals(2024, quarter.getYear().getYear());
-        assertEquals(4, quarter.getQuarter());
+        LocalDate now = LocalDate.now();
+        int expectedYear = now.getYear();
+        int expectedQuarter = (now.getMonthValue()-1)/3+1;
+        assertEquals(expectedYear, quarter.getYearValue());
+        assertEquals(expectedQuarter, quarter.getQuarter());
     }
     @Test
     public void testQuarterCtor1(){
@@ -70,7 +73,7 @@ public class QuarterClassTest {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date time = sdf.parse("02/01/2022");
     	TimeZone zone = TimeZone.getTimeZone("Europe/Madrid");
-    	Quarter quart =new Quarter(time,zone);
+    	Quarter quart =new Quarter(time, Calendar.getInstance(zone));
     	 arrange(1,2022);
          assertEquals(quarter.getYear(),quart.getYear());
          assertEquals(quarter.getQuarter(),quart.getQuarter());
@@ -81,7 +84,7 @@ public class QuarterClassTest {
         sdf.setTimeZone(TimeZone.getTimeZone("Europe/London"));
         Date time = sdf.parse("01/01/2020");
         TimeZone zone = TimeZone.getTimeZone("UTC");
-        Quarter quart = new Quarter(time, zone);
+        Quarter quart = new Quarter(time, Calendar.getInstance(zone));
         arrange(1,2020);
          assertEquals(quarter.getYear(),quart.getYear());
          assertEquals(quarter.getQuarter(),quart.getQuarter());
@@ -218,7 +221,7 @@ public class QuarterClassTest {
          Calendar calendar = Calendar.getInstance(timeZone);
          calendar.set(2023, Calendar.JANUARY, 1, 0, 0, 0);
          calendar.set(Calendar.MILLISECOND, 0);
-         assertEquals(1672524000000L, quarter.getFirstMillisecond(timeZone));
+         assertEquals(1672524000000L, quarter.getFirstMillisecond(Calendar.getInstance(timeZone)));
      }
        @Test
      public void testGetFirstMillisecond2()
@@ -228,7 +231,7 @@ public class QuarterClassTest {
          Calendar calendar = Calendar.getInstance(timeZone);
          calendar.set(2023, Calendar.APRIL, 1, 0, 0, 0);
          calendar.set(Calendar.MILLISECOND, 0);
-         assertEquals(1680300000000L,quarter.getFirstMillisecond(timeZone));
+         assertEquals(1680300000000L,quarter.getFirstMillisecond(Calendar.getInstance(timeZone)));
      }
      @Test
      public void testGetFirstMillisecond3()
@@ -238,7 +241,7 @@ public class QuarterClassTest {
          Calendar calendar = Calendar.getInstance(timeZone);
          calendar.set(2022, Calendar.JANUARY, 1, 0, 0, 0);
          calendar.set(Calendar.MILLISECOND, 0);
-         assertEquals(1640988000000L,quarter.getFirstMillisecond(timeZone));
+         assertEquals(1640988000000L,quarter.getFirstMillisecond(Calendar.getInstance(timeZone)));
      }
      @Test
      public void testGetFirstMillisecond4()
@@ -248,21 +251,21 @@ public class QuarterClassTest {
          Calendar calendar = Calendar.getInstance(timeZone);
          calendar.set(2022, Calendar.APRIL, 1, 0, 0, 0);
          calendar.set(Calendar.MILLISECOND, 0);
-         assertEquals(1648764000000L,quarter.getFirstMillisecond(timeZone));
+         assertEquals(1648764000000L,quarter.getFirstMillisecond(Calendar.getInstance(timeZone)));
      }
      @Test
      public void testGetLastMillisecond1()
      {
     	 arrange(1,2023);
          TimeZone zone = TimeZone.getTimeZone("UTC"); // Ensure correct time zone
-         assertEquals(1680307199999L,quarter.getLastMillisecond(zone));
+         assertEquals(1680307199999L,quarter.getLastMillisecond(Calendar.getInstance(zone)));
      }
      @Test
      public void testGetLastMillisecond2()
      {
     	 arrange(2,2023);
          TimeZone zone = TimeZone.getTimeZone("UTC"); // Ensure correct time zone
-         assertEquals(1688169599999L,quarter.getLastMillisecond(zone));
+         assertEquals(1688169599999L,quarter.getLastMillisecond(Calendar.getInstance(zone)));
      }
     
 }
