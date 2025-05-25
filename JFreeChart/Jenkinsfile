@@ -16,7 +16,7 @@ pipeline {
         stage('Build and Test') {
             steps {
                 dir('JFreeChart') {
-                    sh 'mvn clean test'
+                    sh 'mvn clean test -Duser.timezone=Europe/Berlin'
                 }
             }
         }
