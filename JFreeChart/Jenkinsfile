@@ -15,14 +15,16 @@ pipeline {
 
         stage('Build and Test') {
             steps {
-               dir('JFreeChart') {
+                dir('JFreeChart') {
                     sh 'mvn clean test'
-               }
+                }
             }
         }
-        post {
-            always {
-                junit 'target/surefire-reports/*.xml'
-            }
+    } // end stages
+
+    post {
+        always {
+            junit 'target/surefire-reports/*.xml'
         }
-}
+    }
+} // end pipeline
