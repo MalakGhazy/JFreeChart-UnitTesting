@@ -15,7 +15,9 @@ pipeline {
 
         stage('Build and Test') {
             steps {
-                sh 'mvn clean test'
+               dir('JFreeChart') {
+                    sh 'mvn clean test'
+               }
             }
         }
 
