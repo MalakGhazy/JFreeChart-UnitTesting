@@ -229,7 +229,7 @@ public class QuarterClassTest {
          Calendar calendar = Calendar.getInstance(timeZone);
          calendar.set(2023, Calendar.JANUARY, 1, 0, 0, 0);
          calendar.set(Calendar.MILLISECOND, 0);
-         assertEquals(1672524000000L, quarter.getFirstMillisecond(Calendar.getInstance(timeZone)));
+         assertEquals(1672524000000, quarter.getFirstMillisecond(Calendar.getInstance(timeZone)));
      }
        @Test
      public void testGetFirstMillisecond2()
@@ -239,7 +239,7 @@ public class QuarterClassTest {
          Calendar calendar = Calendar.getInstance(timeZone);
          calendar.set(2023, Calendar.APRIL, 1, 0, 0, 0);
          calendar.set(Calendar.MILLISECOND, 0);
-         assertEquals(1680300000000L,quarter.getFirstMillisecond(Calendar.getInstance(timeZone)));
+         assertEquals(1680300000000,quarter.getFirstMillisecond(Calendar.getInstance(timeZone)));
      }
      @Test
      public void testGetFirstMillisecond3()
@@ -249,7 +249,7 @@ public class QuarterClassTest {
          Calendar calendar = Calendar.getInstance(timeZone);
          calendar.set(2022, Calendar.JANUARY, 1, 0, 0, 0);
          calendar.set(Calendar.MILLISECOND, 0);
-         assertEquals(1640988000000L,quarter.getFirstMillisecond(Calendar.getInstance(timeZone)));
+         assertEquals(1640988000000,quarter.getFirstMillisecond(Calendar.getInstance(timeZone)));
      }
      @Test
      public void testGetFirstMillisecond4()
@@ -259,7 +259,7 @@ public class QuarterClassTest {
          Calendar calendar = Calendar.getInstance(timeZone);
          calendar.set(2022, Calendar.APRIL, 1, 0, 0, 0);
          calendar.set(Calendar.MILLISECOND, 0);
-         assertEquals(1648764000000L,quarter.getFirstMillisecond(Calendar.getInstance(timeZone)));
+         assertEquals(1648764000000,quarter.getFirstMillisecond(Calendar.getInstance(timeZone)));
      }
      @Test
      public void testGetLastMillisecond1()
