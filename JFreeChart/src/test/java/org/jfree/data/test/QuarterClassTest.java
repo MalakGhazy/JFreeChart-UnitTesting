@@ -229,7 +229,7 @@ public class QuarterClassTest {
          Calendar calendar = Calendar.getInstance(timeZone);
          calendar.set(2023, Calendar.JANUARY, 1, 0, 0, 0);
          calendar.set(Calendar.MILLISECOND, 0);
-         assertEquals(1672524000000L, quarter.getFirstMillisecond(Calendar.getInstance(timeZone)));
+         assertEquals(1672524000000, quarter.getFirstMillisecond(Calendar.getInstance(timeZone)));
      }
        @Test
      public void testGetFirstMillisecond2()
